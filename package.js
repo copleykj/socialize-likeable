@@ -1,6 +1,6 @@
 Package.describe({
     name: "socialize:likeable",
-    summary: "A package implementing social \"likeing\" or \"starring\"",
+    summary: "A package implementing social \"liking\" or \"starring\"",
     version: "0.1.0",
 });
 
