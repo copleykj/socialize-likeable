@@ -2,7 +2,7 @@
  * A model of a like which is connected to another database object
  * @class Like
  */
-Like = LinkableModel.extend();
+Like = LinkableModel.extendAndSetupCollection("likes");
 
 /**
  * Get the User instance of the account which created the like
@@ -20,18 +20,10 @@ Like.prototype.isDuplicate = function () {
     return !!LikesCollection.findOne({userId:this.userId, linkedObjectId:this.linkedObjectId});
 };
 
-//create the collection and assign a reference to Like.prototype._collection so BaseModel knows how to access it.
-LikesCollection = Like.prototype._collection = new Mongo.Collection("likes", {
-    transform: function (like) {
-        return new Like(like);
-    }
-});
-
-//attach a reference to Meteor namespace for easy access
-Meteor.likes = LikesCollection;
+LikesCollection = Like.collection;
 
 //create the schema for a like
-var LikeSchema = new SimpleSchema({
+Like.appendSchema({
     "userId":{
         type:String,
         regEx:SimpleSchema.RegEx.Id,
@@ -55,7 +47,4 @@ var LikeSchema = new SimpleSchema({
     }
 });
 
-//attach the schema for a like
-LikesCollection.attachSchema(LikeSchema);
-//and attach the schema for a LinkableModel since we've extended it
-LikesCollection.attachSchema(LinkableModel.LinkableSchema);
+Like.appendSchema(LinkableModel.LinkableSchema);
