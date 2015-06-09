@@ -80,6 +80,7 @@ LikeableModel.prototype.isLikedBy = function (user){
 LikeableModel.LikeableSchema = new SimpleSchema({
     _likeCount: {
         type:Number,
-        defaultValue:0
+        defaultValue:0,
+        custom: SimpleSchema.denyUntrusted
     }
 });
