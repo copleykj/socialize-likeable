@@ -1,7 +1,7 @@
 Package.describe({
     name: "socialize:likeable",
     summary: "A package implementing social \"liking\" or \"starring\"",
-    version: "0.1.1",
+    version: "0.1.2",
 });
 
 Package.onUse(function(api) {
