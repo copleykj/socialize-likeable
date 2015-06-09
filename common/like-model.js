@@ -32,7 +32,6 @@ Like.appendSchema({
                 return Meteor.userId();
             }
         },
-        optional:true,
         denyUpdate:true
     },
     "date":{
@@ -42,7 +41,6 @@ Like.appendSchema({
                 return new Date();
             }
         },
-        optional:true,
         denyUpdate:true
     }
 });
