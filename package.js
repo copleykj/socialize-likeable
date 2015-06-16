@@ -2,6 +2,7 @@ Package.describe({
     name: "socialize:likeable",
     summary: "A package implementing social \"liking\" or \"starring\"",
     version: "0.1.2",
+    git: "https://github.com/copleykj/socialize-likeable.git"
 });
 
 Package.onUse(function(api) {
