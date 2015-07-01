@@ -10,7 +10,7 @@ LikeableModel = BaseModel.extend();
  */
 LikeableModel.prototype.like = function () {
     var type = this._objectType;
-    LikesCollection.insert({linkedObjectId:this._id, userId:Meteor.userId(), objectType:type});
+    new Like({linkedObjectId:this._id, userId:Meteor.userId(), objectType:type}).save();
 };
 
 /**
