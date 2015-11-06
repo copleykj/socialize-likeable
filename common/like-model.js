@@ -28,7 +28,7 @@ Like.appendSchema({
         type:String,
         regEx:SimpleSchema.RegEx.Id,
         autoValue:function () {
-            if(this.isInsert || !this.isFromTrustedCode){
+            if(this.isInsert){
                 return Meteor.userId();
             }
         },
@@ -37,7 +37,7 @@ Like.appendSchema({
     "date":{
         type:Date,
         autoValue:function() {
-            if(this.isInsert || !this.isFromTrustedCode){
+            if(this.isInsert){
                 return new Date();
             }
         },
