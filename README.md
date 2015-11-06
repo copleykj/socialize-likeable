@@ -1,52 +1,63 @@
 # Likeable #
 
-A package for creating likeable models.
+A package for implementing models with "liking" or "starring" capabilities.
 
-## LikeableModel - Extends BaseModel ##
+## LikeableModel ##
 
-**LikeableModel.prototype.like()** - add a like to the model.
-
-**LikeableModel.prototype.unlike()** - remove like from the model.
-
-**LikeableModel.prototype.likes()** - get the likes for the model.
-
-**LikeableModel.prototype.likeCount()** - get the number of likes for the model.
-
-**LikeableModel.prototype.isLikedBy(user)** - check if a particular user likes this model.
-
-## Like - Extends LinkableModel ##
-
-**Like.prototype.user()** - get a User instance for the user that created the like.
-
-**Like.prototype.isDuplicate()** - check to see if a user has already liked the linked object.
-
-## Usage ##
-
-To create a model that is likeable you'll use the `LikeableModel.extend()` method inherited from BaseModel
-
-Assuming you want to model a post you would extend LikebleModel and use the transform option on your posts collection to create instances of the Post class which will be likeable.
+LikeableModel is used to add liking or starring capabilities to a model that is built on Socialize's BaseModel class. To make a model likeable just call `LikeableModel.makeLikeable(Model, "typeAsString")` passing in a model class and a string that will be used to tag the like records for later retrieval. 
 
 ```javascript
-var Post = likeableModel.extend()
+var Post = BaseModel.extendAndSetupCollection("posts");
 
-//BaseModel requires a prototype._collection so we do that here
-Post.prototype._collection = Meteor.Collection("posts", {
-    transform: function(document){
-        return new Post(document);
-    }
-});
-
-//Add other protypal methods for this model
-
-//expose the collection on the Meteor global
-Meteor.posts = Post.prototype._collection;
-
+LikeableModel.makeLikeable(Post, "post");
 ```
 
-Now you can call the LikeableModels protypal methods such as the `like()` or `unlike()` on the post model.
+This will add the following methods to the prototype of the model.
+
+**like()** - Like an instance of the model.
+
+**unlike()** - Unlike an instance of the model.
+
+**likes()** - Returns a cursor of `Like` instances.
+
+**likeCount()** - Returns the number of likes for the instance of a model.
+
+**isLikedBy(user)** - check if a particular user likes this instance of a model.
+
+### Examples ###
 
 ```javascript
 var post = Meteor.posts.findOne();
 
-post.like();
+post.like(); // likes the post
+
+post.unlike(); // unlikes the post
+
+post.likes().forEach(function(like){
+    console.log(like.user().username);
+});
+
+post.likeCount(); //=> 0
+
+post.isLikedBy(Meteor.user()); //=> false
+```
+
+## Like - Extends [LinkableModel](https://github.com/copleykj/socialize-linkable-model)##
+
+A like is a record of a user liking an instance of a model with a reference to that instance.
+
+### Instance Methods ###
+
+*All examples assume an instance of `Like` named `like`*
+
+**user()** - get a User instance for the user that created the like.
+
+```javascript
+like.user(); //=> {_id:"xxxxx", username:"johnDoe"}
+```
+
+**isDuplicate()** - check to see if a user has already liked the linked object.
+
+```javascript
+like.isDuplicate(); => true
 ```
