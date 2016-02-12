@@ -2,7 +2,9 @@
  * A model of a like which is connected to another database object
  * @class Like
  */
-Like = LinkableModel.extendAndSetupCollection("likes");
+Like = BaseModel.extendAndSetupCollection("likes");
+
+LinkableModel.makeLinkable(Like);
 
 /**
  * Get the User instance of the account which created the like

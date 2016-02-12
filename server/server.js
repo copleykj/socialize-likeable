@@ -8,12 +8,12 @@ LikesCollection.allow({
 });
 
 LikesCollection.after.insert(function (userId, like) {
-    var collection = Like.getCollectionForRegisteredType(like.objectType);
+    var collection = LinkableModel.getCollectionForRegisteredType(like.objectType);
 
     userId && collection && collection.update(like.linkedObjectId, {$inc:{_likeCount:1}});
 });
 
 LikesCollection.after.remove(function (userId, like) {
-    var collection = Like.getCollectionForRegisteredType(like.objectType);
+    var collection = LinkableModel.getCollectionForRegisteredType(like.objectType);
     userId && collection && collection.update(like.linkedObjectId, {$inc:{_likeCount:-1}});
 });
