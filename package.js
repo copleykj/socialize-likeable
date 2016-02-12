@@ -1,7 +1,7 @@
 Package.describe({
     name: "socialize:likeable",
     summary: "A package implementing social \"liking\" or \"starring\"",
-    version: "0.2.0",
+    version: "0.2.1",
     git: "https://github.com/copleykj/socialize-likeable.git"
 });
 
