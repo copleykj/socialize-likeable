@@ -1,63 +1,62 @@
 # Likeable #
 
-A package for implementing models with "liking" or "starring" capabilities.
+A package for implementing models with Liking, Starring, or Favoriting capabilities.
 
-## LikeableModel ##
+## Installation ##
 
-LikeableModel is used to add liking or starring capabilities to a model that is built on Socialize's BaseModel class. To make a model likeable just call `LikeableModel.makeLikeable(Model, "typeAsString")` passing in a model class and a string that will be used to tag the like records for later retrieval. 
+`meteor add socialize:likeable`
 
-```javascript
-var Post = BaseModel.extendAndSetupCollection("posts");
-
-LikeableModel.makeLikeable(Post, "post");
-```
-
-This will add the following methods to the prototype of the model.
-
-**like()** - Like an instance of the model.
-
-**unlike()** - Unlike an instance of the model.
-
-**likes()** - Returns a cursor of `Like` instances.
-
-**likeCount()** - Returns the number of likes for the instance of a model.
-
-**isLikedBy(user)** - check if a particular user likes this instance of a model.
-
-### Examples ###
+## Usage ##
 
 ```javascript
-var post = Meteor.posts.findOne();
+import { Mongo } from 'meteor/mongo';
+import { LikeableModel } from 'meteor/socialize-likeable';
+import { LinkParent, LinkableModel } from 'meteor/socialize-linkable';
+import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 
-post.like(); // likes the post
+//define the collection to hold products
+const ProductsCollection = new Mongo.Collection("products");
 
-post.unlike(); // unlikes the post
-
-post.likes().forEach(function(like){
-    console.log(like.user().username);
+//define the schema for a product
+const ProductsSchema = new SimpleSchema({
+    //actual schema excluded for brevity
 });
 
-post.likeCount(); //=> 0
+//Create a product class extending LikeableModel and LinkParent
+class Product extends LikeableModel(LinkParent) {
+    constructor(document){
+        super(document);
+    }
 
-post.isLikedBy(Meteor.user()); //=> false
+    //Add any instance(helper) methods here
+}
+
+//Attach the collection to the model so we can use BaseModel's CRUD methods
+Product.attachCollection(ProductsCollection);
+
+//Register the Model as a potential Parent of a LinkableModel
+LinkableModel.registerParentModel(Product);
+
+//Create a new product and save it to the database using BaseModel's save method.
+new Product({name:"All Stars", brand:"Converse", price:"39.99"}).save();
+
+//Get an instance of Product using a findOne call.
+let foundProduct = ProductsCollection.findOne();
+
+//This is an instance of product and since we've extended LikeableModel we can now just call it's like method
+foundProduct.like();
+
+//and we can unlike it
+foundProduct.unlike()
+
+//and retrieve the number of times it was liked
+foundProduct.likeCount();
+
+//We can even query to see if a certain user has liked this product
+foundProduct.islikedBy(Meteor.user()); //Publication of proper data necessary if querying client side of course
 ```
 
-## Like - Extends [LinkableModel](https://github.com/copleykj/socialize-linkable-model)##
+# Supporting the Project #
+In the spirit of keeping this and all of the packages in the [Socialize](https://atmospherejs.com/socialize) set alive, I ask that if you find this package useful, please donate to its development.
 
-A like is a record of a user liking an instance of a model with a reference to that instance.
-
-### Instance Methods ###
-
-*All examples assume an instance of `Like` named `like`*
-
-**user()** - get a User instance for the user that created the like.
-
-```javascript
-like.user(); //=> {_id:"xxxxx", username:"johnDoe"}
-```
-
-**isDuplicate()** - check to see if a user has already liked the linked object.
-
-```javascript
-like.isDuplicate(); => true
-```
+[Paypal](https://www.paypal.me/copleykj) /  [Bitcoin](https://www.coinbase.com/checkouts/4a52f56a76e565c552b6ecf118461287)
