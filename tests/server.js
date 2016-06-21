@@ -1,0 +1,1 @@
+import { ThingsCollection } from './common'

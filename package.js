@@ -18,3 +18,17 @@ Package.onUse(function(api) {
     api.mainModule("common/common.js");
 
 });
+
+Package.onTest(function(api){
+    api.use([
+        "ecmascript",
+        "accounts-password",
+        "autopublish",
+        "socialize:likeable",
+        "socialize:linkable-model@1.0.0",
+        "practicalmeteor:mocha"
+    ]);
+
+    api.mainModule("tests/server.js", "server");
+    api.mainModule("tests/client.js", "client");
+});
