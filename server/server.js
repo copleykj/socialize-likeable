@@ -1,4 +1,4 @@
-import { LikesCollection } from './like-model';
+import { LikesCollection } from '../common/like-model';
 import { LinkableModel } from 'meteor/socialize:linkable-model';
 
 LikesCollection.allow({
