@@ -2,8 +2,6 @@ import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/underscore';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { LikesCollection, Like } from './like-model';
-import { ParentLink } from 'meteor/socialize:linkable-model'
-
 
 /**
  * LikeableModel - a mixin providing Likeable behavior for a model
