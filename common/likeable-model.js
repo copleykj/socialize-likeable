@@ -2,6 +2,8 @@ import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/underscore';
 import { SimpleSchema } from 'meteor/aldeed:simple-schema';
 import { LikesCollection, Like } from './like-model';
+import { LinkParent } from 'meteor/socialize:linkable-model';
+
 
 /**
  * LikeableModel - a mixin providing Likeable behavior for a model
@@ -9,7 +11,7 @@ import { LikesCollection, Like } from './like-model';
 export const LikeableModel = Base => class extends Base {
     constructor(document){
         super(document);
-        if(!(this instanceof ParentLink)){
+        if(!(this instanceof LinkParent)){
             throw new Meteor.Error("MustExtendParentLink", "LikeableModel must extend ParentLink from socialize:linkable-model");
         }
     }
