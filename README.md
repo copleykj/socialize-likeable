@@ -12,7 +12,7 @@ A package for implementing models with Liking, Starring, or Favoriting capabilit
 import { Mongo } from 'meteor/mongo';
 import { LikeableModel } from 'meteor/socialize-likeable';
 import { LinkParent, LinkableModel } from 'meteor/socialize-linkable';
-import { SimpleSchema } from 'meteor/aldeed:simple-schema';
+import SimpleSchema from 'simpl-schema';
 
 //define the collection to hold products
 const ProductsCollection = new Mongo.Collection("products");
