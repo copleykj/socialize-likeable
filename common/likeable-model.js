@@ -1,18 +1,19 @@
+/* eslint-disable import/no-unresolved */
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/underscore';
 import SimpleSchema from 'simpl-schema';
-import { LikesCollection, Like } from './like-model';
 import { LinkParent } from 'meteor/socialize:linkable-model';
+import { LikesCollection, Like } from './like-model';
 
 
 /**
  * LikeableModel - a mixin providing Likeable behavior for a model
  */
-export const LikeableModel = Base => class extends Base {
-    constructor(document){
+export const LikeableModel = Base => class extends Base { //eslint-disable-line
+    constructor(document) {
         super(document);
-        if(!(this instanceof LinkParent)){
-            throw new Meteor.Error("MustExtendParentLink", "LikeableModel must extend ParentLink from socialize:linkable-model");
+        if (!(this instanceof LinkParent)) {
+            throw new Meteor.Error('MustExtendParentLink', 'LikeableModel must extend ParentLink from socialize:linkable-model');
         }
     }
 
@@ -27,9 +28,9 @@ export const LikeableModel = Base => class extends Base {
      * Remove a record from the likes collection that is linked to the model
      */
     unlike() {
-        //find and then call call instance.remove() since client
-        //is restricted to removing items by their _id
-        let like = LikesCollection.findOne({userId:Meteor.userId(), linkedObjectId:this._id});
+        // find and then call call instance.remove() since client
+        // is restricted to removing items by their _id
+        const like = LikesCollection.findOne({ userId: Meteor.userId(), linkedObjectId: this._id });
         like && like.remove();
     }
 
@@ -38,7 +39,7 @@ export const LikeableModel = Base => class extends Base {
      * @returns {Mongo.Cursor} A mongo cursor which returns Like instances
      */
     likes() {
-        return LikesCollection.find({linkedObjectId:this._id});
+        return LikesCollection.find({ linkedObjectId: this._id });
     }
 
     /**
@@ -46,7 +47,7 @@ export const LikeableModel = Base => class extends Base {
      * @returns {Number} The total number of likes
      */
     likeCount() {
-        //This creates backwards compatibility for when we stored userId's in an array on the liked object
+        // This creates backwards compatibility for when we stored userId's in an array on the liked object
         return _.isArray(this._likeCount) ? this._likeCount.length : this._likeCount || 0;
     }
 
@@ -55,19 +56,19 @@ export const LikeableModel = Base => class extends Base {
      * @param   {Object}  user A User instance to check against
      * @returns {Boolean} Wheter the user likes the model or not
      */
-    isLikedBy(user){
-        return !!LikesCollection.findOne({linkedObjectId:this._id, userId:user._id});
+    isLikedBy(user) {
+        return !!LikesCollection.findOne({ linkedObjectId: this._id, userId: user._id });
     }
-}
+};
 
 
-//a schema which can be attached to other likeable types
-//if you extend a model with LikeableModel you will need to
-//attach this schema to it's collection as well.
+// a schema which can be attached to other likeable types
+// if you extend a model with LikeableModel you will need to
+// attach this schema to it's collection as well.
 LikeableModel.LikeableSchema = new SimpleSchema({
     _likeCount: {
-        type:Number,
-        defaultValue:0,
-        custom: SimpleSchema.denyUntrusted
-    }
+        type: Number,
+        defaultValue: 0,
+        custom: SimpleSchema.denyUntrusted,
+    },
 });
