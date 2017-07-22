@@ -1,8 +1,10 @@
 /* eslint-disable import/no-unresolved */
 import { Meteor } from 'meteor/meteor';
 import { _ } from 'meteor/underscore';
-import SimpleSchema from 'simpl-schema';
 import { LinkParent } from 'meteor/socialize:linkable-model';
+import SimpleSchema from 'simpl-schema';
+/* eslint-enable import/no-unresolved */
+
 import { LikesCollection, Like } from './like-model';
 
 

@@ -4,6 +4,8 @@ import { Mongo } from 'meteor/mongo';
 import { BaseModel } from 'meteor/socialize:base-model';
 import { LinkableModel } from 'meteor/socialize:linkable-model';
 import SimpleSchema from 'simpl-schema';
+/* eslint-enable import/no-unresolved */
+
 
 export const LikesCollection = new Mongo.Collection('likes');
 
