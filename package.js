@@ -9,8 +9,6 @@ Package.describe({
 Package.onUse(function _(api) {
     api.versionsFrom('1.3');
 
-    api.use('ecmascript');
-
     api.use('socialize:linkable-model@1.0.0');
 
     api.imply('socialize:linkable-model');
