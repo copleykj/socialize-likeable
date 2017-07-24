@@ -7,7 +7,7 @@ import SimpleSchema from 'simpl-schema';
 /* eslint-enable import/no-unresolved */
 
 
-export const LikesCollection = new Mongo.Collection('likes');
+export const LikesCollection = new Mongo.Collection('socialize:likes');
 
 const LikeSchema = new SimpleSchema({
     userId: {
