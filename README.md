@@ -9,7 +9,9 @@ In the spirit of keeping this and all of the packages in the [Socialize](https:/
 
 ## Installation ##
 
-`meteor add socialize:likeable`
+```shell
+$ meteor add socialize:likeable
+```
 
 ## Usage ##
 
