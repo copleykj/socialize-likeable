@@ -24,7 +24,7 @@ export const LikeableModel = Base => class extends Base { //eslint-disable-line
      */
     like() {
         new Like(this.getLinkObject()).save({
-            channel: `likes::${this._id}`,
+            namespace: `${this._id}`,
         });
     }
 
@@ -36,7 +36,7 @@ export const LikeableModel = Base => class extends Base { //eslint-disable-line
         // is restricted to removing items by their _id
         const like = LikesCollection.findOne({ userId: Meteor.userId(), linkedObjectId: this._id });
         like && like.remove({
-            channel: `likes::${this._id}`,
+            namespace: `${this._id}`,
         });
     }
 
@@ -44,10 +44,12 @@ export const LikeableModel = Base => class extends Base { //eslint-disable-line
      * Get all the likes for the model
      * @returns {Mongo.Cursor} A mongo cursor which returns Like instances
      */
-    likes() {
-        return LikesCollection.find({ linkedObjectId: this._id }, {
-            channel: `likes::${this._id}`,
-        });
+    likes(options = {}) {
+        const newOptions = {
+            ...options,
+            namespace: `${this._id}`,
+        };
+        return LikesCollection.find({ linkedObjectId: this._id }, newOptions);
     }
 
     /**
