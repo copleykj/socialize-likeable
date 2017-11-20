@@ -9,6 +9,32 @@ import SimpleSchema from 'simpl-schema';
 
 export const LikesCollection = new Mongo.Collection('socialize:likes');
 
+if (LikesCollection.configureRedisOplog) {
+    LikesCollection.configureRedisOplog({
+        mutation(options, { selector, doc }) {
+            let linkedObjectId = (selector && selector.linkedObjectId) || (doc && doc.linkedObjectId);
+
+            if (!linkedObjectId && selector._id) {
+                const comment = LikesCollection.findOne({ _id: selector._id }, { fields: { linkedObjectId: 1 } });
+                linkedObjectId = comment && comment.linkedObjectId;
+            }
+
+            if (linkedObjectId) {
+                Object.assign(options, {
+                    namespace: linkedObjectId,
+                });
+            }
+        },
+        cursor(options, selector) {
+            if (selector.linkedObjectId) {
+                Object.assign(options, {
+                    namespace: selector.linkedObjectId,
+                });
+            }
+        },
+    });
+}
+
 const LikeSchema = new SimpleSchema({
     userId: {
         type: String,
@@ -38,7 +64,6 @@ const LikeSchema = new SimpleSchema({
  * @class Like
  */
 export class Like extends LinkableModel(BaseModel) {
-
     /**
      * Get the User instance of the account which created the like
      * @returns {User} The user who created the like
