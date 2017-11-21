@@ -55,11 +55,13 @@ export const LikeableModel = Base => class extends Base { //eslint-disable-line
 
     /**
      * Check if the model is liked by a certain user
-     * @param   {Object}  user A User instance to check against
+     * @param   {User|Object|String}  user A User instance, Object with _id field or a String
+     *                                     of the userId to check against
      * @returns {Boolean} Wheter the user likes the model or not
      */
     isLikedBy(user) {
-        return !!LikesCollection.findOne({ linkedObjectId: this._id, userId: user._id });
+        const userId = user._id || user;
+        return !!LikesCollection.findOne({ linkedObjectId: this._id, userId });
     }
 };
 
