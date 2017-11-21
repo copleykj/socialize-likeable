@@ -45,6 +45,17 @@ export const LikeableModel = Base => class extends Base { //eslint-disable-line
     }
 
     /**
+     * Get the like by a particular user for the model
+     * @param   {User|Object|String}  user A User instance, Object with _id field or a String
+     *                                     of the userId to check against
+     * @returns {Mongo.Cursor} A mongo cursor which returns Like instances
+     */
+    likesBy(user) {
+        const userId = user._id || user;
+        return LikesCollection.find({ userId, linkedObjectId: this._id }, { limit: 1 });
+    }
+
+    /**
      * Get the total number of likes for the model
      * @returns {Number} The total number of likes
      */
