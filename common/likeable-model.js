@@ -52,17 +52,9 @@ export const LikeableModel = Base => class extends Base { //eslint-disable-line
     }
 
     /**
-     * Get the total number of likes for the model
-     * @returns {Number} The total number of likes
-     */
-    likeCount() {
-        return this._likeCount || 0;
-    }
-
-    /**
      * Check if the model is liked by a certain user
      * @param   {Object}  user A User instance to check against
-     * @returns {Boolean} Wheter the user likes the model or not
+     * @returns {Boolean} Whether the user likes the model or not
      */
     isLikedBy(user) {
         return !!LikesCollection.findOne({ linkedObjectId: this._id, userId: user._id });
