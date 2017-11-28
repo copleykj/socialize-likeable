@@ -21,7 +21,7 @@ const LikeSchema = new SimpleSchema({
         },
         denyUpdate: true,
     },
-    date: {
+    createdAt: {
         type: Date,
         autoValue() {
             if (this.isInsert) {
@@ -38,7 +38,6 @@ const LikeSchema = new SimpleSchema({
  * @class Like
  */
 export class Like extends LinkableModel(BaseModel) {
-
     /**
      * Get the User instance of the account which created the like
      * @returns {User} The user who created the like
