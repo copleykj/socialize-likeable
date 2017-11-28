@@ -56,8 +56,7 @@ export const LikeableModel = Base => class extends Base { //eslint-disable-line
      * @returns {Number} The total number of likes
      */
     likeCount() {
-        // This creates backwards compatibility for when we stored userId's in an array on the liked object
-        return Array.isArray(this._likeCount) ? this._likeCount.length : this._likeCount || 0;
+        return this._likeCount || 0;
     }
 
     /**
