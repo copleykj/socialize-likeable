@@ -66,7 +66,7 @@ export const LikeableModel = Base => class extends Base { //eslint-disable-line
 // if you extend a model with LikeableModel you will need to
 // attach this schema to it's collection as well.
 LikeableModel.LikeableSchema = new SimpleSchema({
-    _likeCount: {
+    likeCount: {
         type: Number,
         defaultValue: 0,
         custom: SimpleSchema.denyUntrusted,
