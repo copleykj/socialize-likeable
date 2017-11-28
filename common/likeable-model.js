@@ -1,6 +1,5 @@
 /* eslint-disable import/no-unresolved */
 import { Meteor } from 'meteor/meteor';
-import { _ } from 'meteor/underscore';
 import { LinkParent } from 'meteor/socialize:linkable-model';
 import SimpleSchema from 'simpl-schema';
 /* eslint-enable import/no-unresolved */
@@ -58,7 +57,7 @@ export const LikeableModel = Base => class extends Base { //eslint-disable-line
      */
     likeCount() {
         // This creates backwards compatibility for when we stored userId's in an array on the liked object
-        return _.isArray(this._likeCount) ? this._likeCount.length : this._likeCount || 0;
+        return Array.isArray(this._likeCount) ? this._likeCount.length : this._likeCount || 0;
     }
 
     /**
