@@ -12,8 +12,6 @@ __unlike()__ - Unlike an instance of the model.
 
 __likes()__ - Returns a cursor of `Like` instances.
 
-__likeCount()__ - Returns the number of likes for the instance of a model.
-
 __isLikedBy(user)__ - check if a particular user likes this instance of a model.
 
 
