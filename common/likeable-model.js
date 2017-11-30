@@ -1,6 +1,5 @@
 /* eslint-disable import/no-unresolved */
 import { Meteor } from 'meteor/meteor';
-import { _ } from 'meteor/underscore';
 import { LinkParent } from 'meteor/socialize:linkable-model';
 import SimpleSchema from 'simpl-schema';
 /* eslint-enable import/no-unresolved */
@@ -81,7 +80,7 @@ export const LikeableModel = Base => class extends Base { //eslint-disable-line
 // if you extend a model with LikeableModel you will need to
 // attach this schema to it's collection as well.
 LikeableModel.LikeableSchema = new SimpleSchema({
-    _likeCount: {
+    likeCount: {
         type: Number,
         defaultValue: 0,
         custom: SimpleSchema.denyUntrusted,

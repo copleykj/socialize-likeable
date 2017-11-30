@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { BaseModel } from 'meteor/socialize:base-model';
 import { LinkableModel } from 'meteor/socialize:linkable-model';
+import { SeverTime } from 'meteor/socialize:server-time';
 import SimpleSchema from 'simpl-schema';
 /* eslint-enable import/no-unresolved */
 
@@ -47,11 +48,11 @@ const LikeSchema = new SimpleSchema({
         },
         denyUpdate: true,
     },
-    date: {
+    createdAt: {
         type: Date,
         autoValue() {
             if (this.isInsert) {
-                return new Date();
+                return SeverTime.date();
             }
             return undefined;
         },

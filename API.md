@@ -12,8 +12,6 @@ __unlike()__ - Unlike an instance of the model. When redis-oplog is available, t
 
 __likes()__ - Returns a cursor of `Like` instances. When redis-oplog is available and this method is used inside a publication, the publication will publish changes to the model's `_id` as a namespace.
 
-__likeCount()__ - Returns the number of likes for the instance of a model.
-
 __isLikedBy(user)__ - check if a particular user likes this instance of a model.
 
 
