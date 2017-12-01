@@ -70,7 +70,7 @@ export class Like extends LinkableModel(BaseModel) {
      * @returns {User} The user who created the like
      */
     user() {
-        return Meteor.users.findOne(this.userId);
+        return Meteor.users.findOne({ _id: this.userId });
     }
     /**
      * Check if the user has already liked the linked object
