@@ -56,9 +56,6 @@ foundProduct.like();
 //and we can unlike it
 foundProduct.unlike()
 
-//and retrieve the number of times it was liked
-foundProduct.likeCount();
-
 //We can even query to see if a certain user has liked this product
 foundProduct.islikedBy(Meteor.user()); //Publication of proper data necessary if querying client side of course
 ```

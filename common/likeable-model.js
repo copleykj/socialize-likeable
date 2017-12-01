@@ -55,15 +55,6 @@ export const LikeableModel = Base => class extends Base { //eslint-disable-line
     }
 
     /**
-     * Get the total number of likes for the model
-     * @returns {Number} The total number of likes
-     */
-    likeCount() {
-        // This creates backwards compatibility for when we stored userId's in an array on the liked object
-        return _.isArray(this._likeCount) ? this._likeCount.length : this._likeCount || 0;
-    }
-
-    /**
      * Check if the model is liked by a certain user
      * @param   {User|Object|String}  user A User instance, Object with _id field or a String
      *                                     of the userId to check against
