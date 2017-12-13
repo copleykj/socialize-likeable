@@ -6,11 +6,11 @@ LikeableModel is used to create models with liking, starring, or favoriting capa
 
 *All examples assume an instance of a class that extends LikeableModel named `like`*
 
-__like()__ - Like an instance of the model. When redis-oplog is available, this will publish to the model's `_id` as the namespace.
+__like()__ - Like an instance of the model.
 
-__unlike()__ - Unlike an instance of the model. When redis-oplog is available, this will publish to the model's `_id` as the namespace.
+__unlike()__ - Unlike an instance of the model.
 
-__likes()__ - Returns a cursor of `Like` instances. When redis-oplog is available and this method is used inside a publication, the publication will publish changes to the model's `_id` as a namespace.
+__likes()__ - Returns a cursor of `Like` instances.
 
 __isLikedBy(user)__ - check if a particular user likes this instance of a model.
 

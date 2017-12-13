@@ -60,10 +60,10 @@ foundProduct.unlike()
 foundProduct.islikedBy(Meteor.user()); //Publication of proper data necessary if querying client side of course
 ```
 
-## Optional Scalability ##
+## Scalability - Redis Oplog ##
 
-This package implements [cultofcoders:redis-oplog][1]'s namespaces to provide reactive scalability as an alternative to Meteor's `livedata`. Use of redis-oplog is not required. At the point that scalability becomes a concern, you can add redis-oplog and where necessary add some `namespace` options to any custom publications. Other packages in the Socialize set that implement this package have namespaces for their publications.
+This package contains a preliminary implementation of [cultofcoders:redis-oplog][1]'s namespaces to provide reactive scalability as an alternative to Meteor's `livedata`. Use of redis-oplog is not required and will not engage until you install the [cultofcoders:redis-oplog][1] package and configure it.
 
-When redis-oplog is installed in your meteor app, Liking and unliking a model that implements `LikeableModel` will publish changes to redis-oplog. The `likes()` method that returns all of the like instances for that particular model also listens on the models \_id as a namespace which allows it's usage inside publications so likes for the model will be reactively published.
+Due to the preliminary nature of this implementation, you may run into minor issues. Please report any issues you find to GitHub so that they can be fixed.
 
 [1]:https://github.com/cultofcoders/redis-oplog
