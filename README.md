@@ -60,6 +60,8 @@ foundProduct.unlike()
 foundProduct.islikedBy(Meteor.user()); //Publication of proper data necessary if querying client side of course
 ```
 
+For a more in depth explanation of how to use this package see [API.md](API.md)
+
 ## Scalability - Redis Oplog ##
 
 This package contains a preliminary implementation of [cultofcoders:redis-oplog][1]'s namespaces to provide reactive scalability as an alternative to Meteor's `livedata`. Use of redis-oplog is not required and will not engage until you install the [cultofcoders:redis-oplog][1] package and configure it.
