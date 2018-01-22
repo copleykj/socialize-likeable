@@ -1,4 +1,5 @@
 import { LikesCollection } from '../common/like-model';
+import './publications.js';
 
 LikesCollection.allow({
     insert(userId, like) {
