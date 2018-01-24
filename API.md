@@ -34,3 +34,10 @@ __isDuplicate()__ - check to see if a user has already liked the linked object.
 ```javascript
 like.isDuplicate(); => true
 ```
+
+## Publications ##
+
+**socialize.likesFor(linkedObjectId, options = { limit: 10, sort: { createdAt: -1 } })** - Publishes the likes and their related data for a certain object.
+
+```javascript
+Meteor.subscribe('socialize.likesFor', post._id, { limit: 5, skip: 2 });
