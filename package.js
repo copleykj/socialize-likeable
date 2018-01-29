@@ -11,7 +11,7 @@ Package.onUse(function _(api) {
 
   api.use(['socialize:user-model@1.0.0', 'reywood:publish-composite@1.5.2']);
 
-  api.imply(['socialize:linkable-model']);
+  api.imply('socialize:user-model');
 
   api.mainModule('server/server.js', 'server');
   api.mainModule('common/common.js');
