@@ -5,11 +5,14 @@ A package for implementing models with Liking, Starring, or Favoriting capabilit
 ## Supporting the Project ##
 In the spirit of keeping this and all of the packages in the [Socialize](https://atmospherejs.com/socialize) set alive, I ask that if you find this package useful, please donate to it's development.
 
-[Bitcoin](https://www.coinbase.com/checkouts/4a52f56a76e565c552b6ecf118461287) / [Patreon](https://www.patreon.com/user?u=4866588) / [Paypal](https://www.paypal.me/copleykj)
+Litecoin: LXLBD9sC5dV79eQkwj7tFusUHvJA5nhuD3 / [Patreon](https://www.patreon.com/user?u=4866588) / [Paypal](https://www.paypal.me/copleykj)
 
 ## Installation ##
 
+This package relies on the npm package `simpl-schema` so you will need to make sure it is installed as well.
+
 ```shell
+$ meteor npm install --save simpl-schema
 $ meteor add socialize:likeable
 ```
 
@@ -56,9 +59,16 @@ foundProduct.like();
 //and we can unlike it
 foundProduct.unlike()
 
-//and retrieve the number of times it was liked
-foundProduct.likeCount();
-
 //We can even query to see if a certain user has liked this product
 foundProduct.islikedBy(Meteor.user()); //Publication of proper data necessary if querying client side of course
 ```
+
+For a more in depth explanation of how to use this package see [API.md](API.md)
+
+## Scalability - Redis Oplog ##
+
+This package contains a preliminary implementation of [cultofcoders:redis-oplog][1]'s namespaces to provide reactive scalability as an alternative to Meteor's `livedata`. Use of redis-oplog is not required and will not engage until you install the [cultofcoders:redis-oplog][1] package and configure it.
+
+Due to the preliminary nature of this implementation, you may run into minor issues. Please report any issues you find to GitHub so that they can be fixed.
+
+[1]:https://github.com/cultofcoders/redis-oplog

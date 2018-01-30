@@ -12,8 +12,6 @@ __unlike()__ - Unlike an instance of the model.
 
 __likes()__ - Returns a cursor of `Like` instances.
 
-__likeCount()__ - Returns the number of likes for the instance of a model.
-
 __isLikedBy(user)__ - check if a particular user likes this instance of a model.
 
 
@@ -36,3 +34,10 @@ __isDuplicate()__ - check to see if a user has already liked the linked object.
 ```javascript
 like.isDuplicate(); => true
 ```
+
+## Publications ##
+
+**socialize.likesFor(linkedObjectId, options = { limit: 10, sort: { createdAt: -1 } })** - Publishes the likes and their related data for a certain object.
+
+```javascript
+Meteor.subscribe('socialize.likesFor', post._id, { limit: 5, skip: 2 });

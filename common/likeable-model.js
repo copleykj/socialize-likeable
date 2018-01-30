@@ -1,6 +1,5 @@
 /* eslint-disable import/no-unresolved */
 import { Meteor } from 'meteor/meteor';
-import { _ } from 'meteor/underscore';
 import { LinkParent } from 'meteor/socialize:linkable-model';
 import SimpleSchema from 'simpl-schema';
 /* eslint-enable import/no-unresolved */
@@ -23,9 +22,7 @@ export const LikeableModel = Base => class extends Base { //eslint-disable-line
      * Add a record to the likes collection which is linked to the model
      */
     like() {
-        new Like(this.getLinkObject()).save({
-            namespace: `${this._id}`,
-        });
+        new Like(this.getLinkObject()).save();
     }
 
     /**
@@ -35,9 +32,7 @@ export const LikeableModel = Base => class extends Base { //eslint-disable-line
         // find and then call call instance.remove() since client
         // is restricted to removing items by their _id
         const like = LikesCollection.findOne({ userId: Meteor.userId(), linkedObjectId: this._id });
-        like && like.remove({
-            namespace: `${this._id}`,
-        });
+        like && like.remove();
     }
 
     /**
@@ -45,29 +40,29 @@ export const LikeableModel = Base => class extends Base { //eslint-disable-line
      * @returns {Mongo.Cursor} A mongo cursor which returns Like instances
      */
     likes(options = {}) {
-        const newOptions = {
-            ...options,
-            namespace: `${this._id}`,
-        };
-        return LikesCollection.find({ linkedObjectId: this._id }, newOptions);
+        return LikesCollection.find({ linkedObjectId: this._id }, options);
     }
 
     /**
-     * Get the total number of likes for the model
-     * @returns {Number} The total number of likes
+     * Get the like by a particular user for the model
+     * @param   {User|Object|String}  user A User instance, Object with _id field or a String
+     *                                     of the userId to check against
+     * @returns {Mongo.Cursor} A mongo cursor which returns Like instances
      */
-    likeCount() {
-        // This creates backwards compatibility for when we stored userId's in an array on the liked object
-        return _.isArray(this._likeCount) ? this._likeCount.length : this._likeCount || 0;
+    likesBy(user) {
+        const userId = user._id || user;
+        return LikesCollection.find({ userId, linkedObjectId: this._id }, { limit: 1 });
     }
 
     /**
      * Check if the model is liked by a certain user
-     * @param   {Object}  user A User instance to check against
+     * @param   {User|Object|String}  user A User instance, Object with _id field or a String
+     *                                     of the userId to check against
      * @returns {Boolean} Wheter the user likes the model or not
      */
     isLikedBy(user) {
-        return !!LikesCollection.findOne({ linkedObjectId: this._id, userId: user._id });
+        const userId = user._id || user;
+        return !!LikesCollection.findOne({ linkedObjectId: this._id, userId });
     }
 };
 
@@ -76,7 +71,7 @@ export const LikeableModel = Base => class extends Base { //eslint-disable-line
 // if you extend a model with LikeableModel you will need to
 // attach this schema to it's collection as well.
 LikeableModel.LikeableSchema = new SimpleSchema({
-    _likeCount: {
+    likeCount: {
         type: Number,
         defaultValue: 0,
         custom: SimpleSchema.denyUntrusted,

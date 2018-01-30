@@ -3,11 +3,38 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { BaseModel } from 'meteor/socialize:base-model';
 import { LinkableModel } from 'meteor/socialize:linkable-model';
+import { ServerTime } from 'meteor/socialize:server-time';
 import SimpleSchema from 'simpl-schema';
 /* eslint-enable import/no-unresolved */
 
 
 export const LikesCollection = new Mongo.Collection('socialize:likes');
+
+if (LikesCollection.configureRedisOplog) {
+    LikesCollection.configureRedisOplog({
+        mutation(options, { selector, doc }) {
+            let linkedObjectId = (selector && selector.linkedObjectId) || (doc && doc.linkedObjectId);
+
+            if (!linkedObjectId && selector._id) {
+                const comment = LikesCollection.findOne({ _id: selector._id }, { fields: { linkedObjectId: 1 } });
+                linkedObjectId = comment && comment.linkedObjectId;
+            }
+
+            if (linkedObjectId) {
+                Object.assign(options, {
+                    namespace: linkedObjectId,
+                });
+            }
+        },
+        cursor(options, selector) {
+            if (selector.linkedObjectId) {
+                Object.assign(options, {
+                    namespace: selector.linkedObjectId,
+                });
+            }
+        },
+    });
+}
 
 const LikeSchema = new SimpleSchema({
     userId: {
@@ -21,11 +48,11 @@ const LikeSchema = new SimpleSchema({
         },
         denyUpdate: true,
     },
-    date: {
+    createdAt: {
         type: Date,
         autoValue() {
             if (this.isInsert) {
-                return new Date();
+                return ServerTime.date();
             }
             return undefined;
         },
@@ -38,13 +65,12 @@ const LikeSchema = new SimpleSchema({
  * @class Like
  */
 export class Like extends LinkableModel(BaseModel) {
-
     /**
      * Get the User instance of the account which created the like
      * @returns {User} The user who created the like
      */
     user() {
-        return Meteor.users.findOne(this.userId);
+        return Meteor.users.findOne({ _id: this.userId });
     }
     /**
      * Check if the user has already liked the linked object
