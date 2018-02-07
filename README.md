@@ -34,11 +34,7 @@ const ProductsSchema = new SimpleSchema({
 
 //Create a product class extending LikeableModel and LinkParent
 class Product extends LikeableModel(LinkParent) {
-    constructor(document){
-        super(document);
-    }
-
-    //Add any instance(helper) methods here
+    //methods here
 }
 
 //Attach the collection to the model so we can use BaseModel's CRUD methods

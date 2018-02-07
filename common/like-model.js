@@ -46,6 +46,7 @@ const LikeSchema = new SimpleSchema({
             }
             return undefined;
         },
+        index: 1,
         denyUpdate: true,
     },
     createdAt: {
