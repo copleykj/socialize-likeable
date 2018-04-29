@@ -1,6 +1,6 @@
 {
     "name": "@socialize/likeable",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "Meteor's socialize:likeable package ported for React Native",
     "main": "entry-rn.js",
     "scripts": {
@@ -21,6 +21,6 @@
     },
     "homepage": "https://github.com/copleykj/socialize-likeable#readme",
     "dependencies": {
-        "@socialize/user-blocking": "^0.0.1"
+        "@socialize/user-blocking": "^1.0.0"
     }
 }
