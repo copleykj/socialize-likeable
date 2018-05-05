@@ -14,7 +14,7 @@ Package.onUse(function _(api) {
         'reywood:publish-composite@1.5.2',
     ]);
 
-    api.imply('socialize:user-model');
+    api.imply('socialize:user-blocking');
 
     api.mainModule('server/server.js', 'server');
     api.mainModule('common/common.js');

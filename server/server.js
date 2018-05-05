@@ -1,4 +1,4 @@
-import { LikesCollection } from '../common/like-model';
+import { LikesCollection } from '../common/common.js';
 import './publications.js';
 
 LikesCollection.allow({
