@@ -1,4 +1,4 @@
-import { LikesCollection } from '../common/common.js';
+import { Like, LikeableModel, LikesCollection } from '../common/common.js';
 import './publications.js';
 
 LikesCollection.allow({
@@ -23,3 +23,5 @@ LikesCollection.after.remove(function afterRemove(userId, like) {
     const collection = this.transform().getCollectionForParentLink();
     userId && collection && collection.update({ _id: like.linkedObjectId }, { $inc: { likeCount: -1 } });
 });
+
+export { Like, LikeableModel, LikesCollection };
