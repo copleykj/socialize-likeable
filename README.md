@@ -42,6 +42,7 @@ $ npm install --save @socialize/likeable
 
 Depending on the environment your code will be running in, you'll need to import the classes from the packages specific to that environment, either Meteor or React Native.
 
+Meteor:
 ```javascript
 //Meteor Imports
 import { Mongo } from 'meteor/mongo';
@@ -49,6 +50,7 @@ import { LikeableModel } from 'meteor/socialize-likeable';
 import { LinkParent, LinkableModel } from 'meteor/socialize-linkable';
 ```
 
+React Native:
 ```javascript
 //React Native Imports
 import { Mongo } from '@socialize/react-native-meteor';
@@ -72,6 +74,11 @@ const ProductsSchema = new SimpleSchema({
 class Product extends LikeableModel(LinkParent) {
     //methods here
 }
+// Attach schema
+ProductsCollection.attachSchema(ProductsSchema);
+// Attache LikeableSchema
+ProductsCollection.appendSchema(LikeableModel.LikeableSchema);
+
 
 //Attach the collection to the model so we can use BaseModel's CRUD methods
 Product.attachCollection(ProductsCollection);
@@ -89,7 +96,7 @@ let foundProduct = ProductsCollection.findOne();
 foundProduct.like();
 
 //and we can unlike it
-foundProduct.unlike()
+foundProduct.unlike();
 
 //We can even query to see if a certain user has liked this product
 foundProduct.islikedBy(Meteor.user()); //Publication of proper data necessary if querying client side of course
