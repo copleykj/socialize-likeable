@@ -2,16 +2,16 @@
 Package.describe({
     name: 'socialize:likeable',
     summary: 'A package implementing social "liking" or "starring"',
-    version: '1.0.2',
+    version: '1.0.3',
     git: 'https://github.com/copleykj/socialize-likeable.git',
 });
 
 Package.onUse(function _(api) {
-    api.versionsFrom('1.3');
+    api.versionsFrom('1.8.3');
 
     api.use([
         'socialize:user-blocking@1.0.1',
-        'reywood:publish-composite@1.6.0',
+        'reywood:publish-composite@1.7.3',
     ]);
 
     api.imply('socialize:user-blocking');
