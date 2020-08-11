@@ -10,7 +10,7 @@ Package.onUse(function _(api) {
     api.versionsFrom('1.10.2');
 
     api.use([
-        'socialize:user-blocking@1.0.3',
+        'socialize:user-blocking@1.0.4',
         'reywood:publish-composite@1.7.3',
     ]);
 
