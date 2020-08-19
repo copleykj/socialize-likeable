@@ -27,7 +27,7 @@
         "@socialize/user-blocking": "^1.0.5"
     },
     "devDependencies": {
-      "rimraf":"^3.0.2"
+        "rimraf": "^3.0.2"
     },
     "funding": [
         {
