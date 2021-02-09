@@ -47,7 +47,7 @@ export default ({ Meteor, LinkParent, LikesCollection, Like }) => {
         * @returns {Mongo.Cursor} A mongo cursor which returns Like instances
         */
         likesBy(user) {
-            const userId = user._id || user;
+            const userId = user?._id || user;
             return LikesCollection.find({ userId, linkedObjectId: this._id }, { limit: 1 });
         }
 
@@ -58,7 +58,7 @@ export default ({ Meteor, LinkParent, LikesCollection, Like }) => {
         * @returns {Boolean} Wheter the user likes the model or not
         */
         isLikedBy(user) {
-            const userId = user._id || user;
+            const userId = user?._id || user;
             return !!LikesCollection.findOne({ linkedObjectId: this._id, userId });
         }
     };
