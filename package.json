@@ -24,7 +24,7 @@
     },
     "homepage": "https://github.com/copleykj/socialize-likeable#readme",
     "dependencies": {
-        "@socialize/user-blocking": "^1.0.5"
+        "@socialize/user-blocking": "^1.0.6"
     },
     "devDependencies": {
         "rimraf": "^3.0.2"
